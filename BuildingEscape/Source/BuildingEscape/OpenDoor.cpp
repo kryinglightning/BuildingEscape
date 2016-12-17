@@ -20,6 +20,10 @@ void UOpenDoor::BeginPlay()
 {
 	Super::BeginPlay();
 
+	ActorThatOpens = GetWorld()->GetFirstPlayerController()->GetPawn();
+}
+
+void UOpenDoor::OpenDoor() {
 	//Find the Owning Actor
 	AActor* Owner = GetOwner();
 
@@ -36,6 +40,11 @@ void UOpenDoor::TickComponent( float DeltaTime, ELevelTick TickType, FActorCompo
 {
 	Super::TickComponent( DeltaTime, TickType, ThisTickFunction );
 
-	// ...
+	// Poll the trigger volume every frame
+
+	//if the actorthatopens is in the voulme
+	if (PressurePlate->IsOverlappingActor(ActorThatOpens)) {
+		OpenDoor();  //then open the door
+	}
 }
 
