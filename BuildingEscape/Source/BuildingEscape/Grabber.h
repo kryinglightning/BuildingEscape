@@ -24,6 +24,12 @@ public:
 private:
 	//how far can the player reach
 	float Reach = 100.f;
-		
+
+	UPhysicsHandleComponent* PhysicsHandle = nullptr;
+	UInputComponent* PlayerInput = nullptr;
 	
+	//raycast and grab what's in reach
+	void Grab();
+	
+	void Release();
 };
