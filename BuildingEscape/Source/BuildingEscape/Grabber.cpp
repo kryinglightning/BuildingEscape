@@ -40,12 +40,7 @@ void UGrabber::TickComponent( float DeltaTime, ELevelTick TickType, FActorCompon
 		OUT FPlayerViewpointRotation
 	);
 
-	//UE_LOG(LogTemp, Warning, TEXT("Player is looking at %s, the rotation is %s"), 
-	//	*FPlayerViewpointLocation.ToString(),
-	//	*FPlayerViewpointRotation.ToString()
-	//);
-
-	//Draw a red trace in the world to visualize
+	///Draw a red trace in the world to visualize
 	FVector LineTraceEnd = FPlayerViewpointLocation + FPlayerViewpointRotation.Vector() * Reach;
 	DrawDebugLine(
 		GetWorld(), 
@@ -57,7 +52,23 @@ void UGrabber::TickComponent( float DeltaTime, ELevelTick TickType, FActorCompon
 		0.f,
 		10.f
 	);
-	//raycast out to reach distance
+
+	//Set up query params
+	FCollisionQueryParams TraceParameters(FName(TEXT("")), false, GetOwner());
+
+	///Linetrace (ray-cast) out to reach distance
+	FHitResult LineTraceHit;
+	
+
+	GetWorld()->LineTraceSingleByObjectType(
+		OUT LineTraceHit,
+		FPlayerViewpointLocation,
+		LineTraceEnd,
+		FCollisionObjectQueryParams(ECollisionChannel::ECC_PhysicsBody),
+		TraceParameters
+	);
+
+	UE_LOG(LogTemp, Warning, TEXT("Colliding with %s"), *(LineTraceHit.GetActor()->GetName()));
 
 	//see what we hit
 }
