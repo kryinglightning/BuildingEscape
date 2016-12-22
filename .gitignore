@@ -11,3 +11,5 @@ BuildingEscape/Content/StarterContent/
 
 *.VC.db
 *.suo
+*.VC.opendb
+*.sln

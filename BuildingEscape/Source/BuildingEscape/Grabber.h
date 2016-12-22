@@ -39,5 +39,8 @@ private:
 
 	//get the 1st physics body in reach 
 	const FHitResult GetFirstPhysicsBodyInReach();
+	
+	FVector GetLineTraceStart();
+	FVector GetLineTraceEnd();
 
 };
