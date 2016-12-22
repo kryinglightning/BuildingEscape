@@ -39,6 +39,4 @@ private:
 	AActor* Owner; //the owning door
 
 	AActor* ActorThatOpens; //pawn inherits from actor
-
-	
 };

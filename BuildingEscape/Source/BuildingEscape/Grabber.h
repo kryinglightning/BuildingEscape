@@ -32,4 +32,12 @@ private:
 	void Grab();
 	
 	void Release();
+
+	void FindPhysicsHandleComponent();
+
+	void SetupInputComponent();
+
+	//get the 1st physics body in reach 
+	const FHitResult GetFirstPhysicsBodyInReach();
+
 };
