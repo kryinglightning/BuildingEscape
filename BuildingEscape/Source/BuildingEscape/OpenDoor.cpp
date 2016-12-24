@@ -27,10 +27,6 @@ void UOpenDoor::BeginPlay()
 	}
 }
 
-void UOpenDoor::OpenDoor() {
-	Owner->SetActorRotation(FRotator(0.0f, OpenAngle, 0.0f));
-}
-
 void UOpenDoor::CloseDoor() {
 	Owner->SetActorRotation(FRotator(0.0f, 0.0f, 0.0f));
 }
@@ -42,14 +38,10 @@ void UOpenDoor::TickComponent( float DeltaTime, ELevelTick TickType, FActorCompo
 	Super::TickComponent( DeltaTime, TickType, ThisTickFunction );
 
 	// Poll the trigger volume every frame
-	if (TotalMassOnPlate() > TriggerMass) { //TODO change the condition
-		OpenDoor(); 
-		LastDoorOpenTime = GetWorld()->GetTimeSeconds();
-	}
-
-	//check if it's time to close the door
-	if (GetWorld()->GetTimeSeconds() >= (LastDoorOpenTime + DoorCloseDelay)) {
-		CloseDoor();
+	if (TotalMassOnPlate() > TriggerMass) {
+		OnOpenRequest.Broadcast();
+	} else {
+		OnCloseRequest.Broadcast();
 	}
 }
 
